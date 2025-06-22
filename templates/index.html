@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Inventory Dashboard</h1>
+
+    <form method="get" action="/">
+        <input type="text" name="search" placeholder="Search items..." value="{{ search }}">
+        <button type="submit">Search</button>
+        <a href="/low-stock">Low Stock</a>
+    </form>
+
+    <table>
+        <tr>
+            <th>Name</th><th>Category</th><th>Supplier</th><th>Quantity</th>
+        </tr>
+        {% for item in items %}
+        <tr {% if item[4] < 10 %} class="low" {% endif %}>
+            <td>{{ item[1] }}</td><td>{{ item[2] }}</td><td>{{ item[3] }}</td><td>{{ item[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Add New Item</h2>
+    <form method="post" action="/add">
+        <input name="name" placeholder="Item Name" required>
+        <input name="category" placeholder="Category">
+        <input name="supplier" placeholder="Supplier">
+        <input name="quantity" type="number" placeholder="Qty" min="0" required>
+        <button type="submit">Add Item</button>
+    </form>
+</body>
+</html>
